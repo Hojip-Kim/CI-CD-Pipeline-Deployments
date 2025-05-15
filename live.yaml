@@ -1,0 +1,91 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: python-app:argoproj.io/Rollout:python/python-app
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"Rollout","metadata":{"annotations":{"argocd.argoproj.io/tracking-id":"python-app:argoproj.io/Rollout:python/python-app"},"labels":{"app.kubernetes.io/name":"python-app"},"name":"python-app","namespace":"python"},"spec":{"replicas":1,"revisionHistoryLimit":6,"selector":{"matchLabels":{"app.kubernetes.io/name":"python-app"}},"strategy":{"autosync":{"enabled":true},"blueGreen":{"activeService":"python-app","previewService":"python-app-preview"}},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"python-app"}},"spec":{"containers":[{"image":"hojipkim/python-app:74b751","imagePullPolicy":"IfNotPresent","name":"python-app","ports":[{"containerPort":5000}]}]}}}}
+    rollout.argoproj.io/revision: "13"
+  creationTimestamp: "2025-05-15T08:50:34Z"
+  generation: 29
+  labels:
+    app.kubernetes.io/name: python-app
+  name: python-app
+  namespace: python
+  resourceVersion: "104398"
+  uid: 30151fcb-f600-433f-9230-62c5fe37e11b
+spec:
+  replicas: 1
+  restartAt: "2025-05-15T11:18:17Z"
+  revisionHistoryLimit: 6
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: python-app
+  strategy:
+    blueGreen:
+      activeService: python-app
+      previewService: python-app-preview
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: python-app
+    spec:
+      containers:
+      - image: hojipkim/python-app:74b751
+        imagePullPolicy: IfNotPresent
+        name: python-app
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  HPAReplicas: 1
+  availableReplicas: 1
+  blueGreen:
+    activeSelector: 69bc6d68f9
+    previewSelector: 69bc6d68f9
+  canary: {}
+  conditions:
+  - lastTransitionTime: "2025-05-15T09:18:13Z"
+    lastUpdateTime: "2025-05-15T09:18:13Z"
+    message: Rollout is paused
+    reason: RolloutPaused
+    status: "False"
+    type: Paused
+  - lastTransitionTime: "2025-05-15T11:04:44Z"
+    lastUpdateTime: "2025-05-15T11:04:44Z"
+    message: RolloutCompleted
+    reason: RolloutCompleted
+    status: "True"
+    type: Completed
+  - lastTransitionTime: "2025-05-15T11:18:18Z"
+    lastUpdateTime: "2025-05-15T11:18:18Z"
+    message: Rollout has minimum availability
+    reason: AvailableReason
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2025-05-15T11:27:37Z"
+    lastUpdateTime: "2025-05-15T11:27:37Z"
+    message: Rollout is healthy
+    reason: RolloutHealthy
+    status: "True"
+    type: Healthy
+  - lastTransitionTime: "2025-05-15T09:18:13Z"
+    lastUpdateTime: "2025-05-15T11:27:37Z"
+    message: ReplicaSet "python-app-69bc6d68f9" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  currentPodHash: 69bc6d68f9
+  observedGeneration: "29"
+  phase: Healthy
+  readyReplicas: 1
+  replicas: 1
+  restartedAt: "2025-05-15T11:18:17Z"
+  selector: app.kubernetes.io/name=python-app,rollouts-pod-template-hash=69bc6d68f9
+  stableRS: 69bc6d68f9
+  updatedReplicas: 1

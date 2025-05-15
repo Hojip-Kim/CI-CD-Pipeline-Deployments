@@ -1,0 +1,88 @@
+---
+# Source: python-app/templates/service-active.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "python-app"
+  labels:
+    app.kubernetes.io/name: python-app
+spec:
+  selector:
+    app.kubernetes.io/name: python-app
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
+      protocol: TCP
+---
+# Source: python-app/templates/service-preview.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "python-app-preview"
+  labels:
+    app.kubernetes.io/name: python-app
+spec:
+  selector:
+    app.kubernetes.io/name: python-app
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
+      protocol: TCP
+---
+# Source: python-app/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: release-name-python-app
+  labels:
+    helm.sh/chart: python-app-0.1.0
+    app.kubernetes.io/name: python-app
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "python-app.test.com"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: release-name-python-app
+                port:
+                  number: 5000
+---
+# Source: python-app/templates/rollout.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: release-name-python-app
+  namespace: python
+  labels:
+    app.kubernetes.io/name: python-app
+spec:
+  revisionHistoryLimit: 6
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: python-app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: python-app
+
+    spec:
+      containers:
+      - name: python-app
+        image: "hojipkim/python-app:74b751"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+  strategy:
+    blueGreen:  
+      activeService: "python-app"
+      previewService: "python-app-preview"
