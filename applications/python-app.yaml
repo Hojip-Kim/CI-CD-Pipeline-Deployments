@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/hojipkim/CI-CD-Pipeline-Deployments.git
+    repoURL: https://github.com/Hojip-Kim/CI-CD-Pipeline-Deployments.git
     targetRevision: main
     path: charts/python-app
   destination:
