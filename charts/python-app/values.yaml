@@ -11,6 +11,7 @@ rollout:
     previewService: 'python-app-preview'
   autoPromotionEnabled: false
 
+  tag: '717291'
 imagePullSecrets: []
 nameOverride: ''
 fullnameOverride: ''
