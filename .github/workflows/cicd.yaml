@@ -36,6 +36,10 @@ jobs:
       - name: Argocd app sync
         shell: bash
         run: |
+          sudo curl -sSL -o /usr/local/bin/argocd \
+            https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-arm64
+          sudo chmod +x /usr/local/bin/argocd
+        run: |
           argocd login https://argocd-server.argocd \
             --insecure \
             --grpc-web \
