@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: hojipkim/python-app
   pullPolicy: IfNotPresent
-  tag: '35b0e9'
+  tag: 'b042ff'
 rollout:
   enabled: true
   imagePullPolicy: Always
