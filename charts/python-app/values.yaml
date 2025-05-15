@@ -9,7 +9,7 @@ rollout:
   strategy:
     activeService: 'python-app'
     previewService: 'python-app-preview'
-  autoPromotionEnabled: false
+  autoPromotionEnabled: true
 imagePullSecrets: []
 nameOverride: ''
 fullnameOverride: ''
