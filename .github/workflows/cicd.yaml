@@ -40,9 +40,8 @@ jobs:
             https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-arm64
           sudo chmod +x /usr/local/bin/argocd
 
-          argocd login argocd-server.argocd \
-            --insecure \
-            --grpc-web \
-            --username ${{ secrets.ARGOCD_USERNAME }} \
-            --password ${{ secrets.ARGOCD_PASSWORD }}
+          argocd login argocd-server.argocd --insecure --grpc-web \
+            --username "${{ secrets.ARGOCD_USERNAME }}" \
+            --password "${{ secrets.ARGOCD_PASSWORD }}"
+
           argocd app sync python-app
