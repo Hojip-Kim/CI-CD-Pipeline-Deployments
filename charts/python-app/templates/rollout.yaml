@@ -1,0 +1,34 @@
+
+{{- if .Values.rollout.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "python-app.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "python-app.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "python-app.name" . }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "python-app.name" . }}
+
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+  strategy:
+    blueGreen:
+      activeService: {{ .Values.rollout.strategy.activeService | quote }}
+      previewService: {{ .Values.rollout.strategy.previewService | quote }}
+      {{- if not .Values.rollout.autoPromotionEnabled }}
+      autoPromotionEnabled: false
+      {{- end }}
+{{- end }}

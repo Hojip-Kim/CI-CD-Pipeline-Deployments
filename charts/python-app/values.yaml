@@ -3,6 +3,14 @@ image:
   repository: hojipkim/python-app
   pullPolicy: IfNotPresent
   tag: '314940'
+rollout:
+  enabled: true
+  imagePullPolicy: IfNotPresent
+  strategy:
+    activeService: 'python-app'
+    previewService: 'python-app-preview'
+  autoPromotionEnabled: false
+
 imagePullSecrets: []
 nameOverride: ''
 fullnameOverride: ''
