@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: hojipkim/python-app
   pullPolicy: IfNotPresent
-  tag: '314940'
+  tag: '717291'
 imagePullSecrets: []
 nameOverride: ''
 fullnameOverride: ''
