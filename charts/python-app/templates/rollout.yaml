@@ -29,6 +29,6 @@ spec:
       activeService: {{ .Values.rollout.strategy.activeService | quote }}
       previewService: {{ .Values.rollout.strategy.previewService | quote }}
       {{- if not .Values.rollout.autoPromotionEnabled }}
-      autoPromotionEnabled: false
+      autoPromotionEnabled: true
       {{- end }}
 {{- end }}
