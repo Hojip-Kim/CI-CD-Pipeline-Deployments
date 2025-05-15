@@ -5,7 +5,7 @@ image:
   tag: '717291'
 rollout:
   enabled: true
-  imagePullPolicy: IfNotPresent
+  imagePullPolicy: Always
   strategy:
     activeService: 'python-app'
     previewService: 'python-app-preview'
