@@ -8,6 +8,7 @@ metadata:
   labels:
     app.kubernetes.io/name: {{ include "python-app.name" . }}
 spec:
+  revisionHistoryLimit: 6
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
@@ -30,5 +31,12 @@ spec:
       previewService: {{ .Values.rollout.strategy.previewService | quote }}
       {{- if not .Values.rollout.autoPromotionEnabled }}
       autoPromotionEnabled: true
+      # 우선순위없는 기본 대기 30분
+      scaleDownDelay: 30m    
+      # 프로모션 뒤에는 1시간 대기
+      scaleDownDelayAfterPromotion: 1h
+      # 롤백 뒤에는 5분만 대기
+      scaleDownDelayAfterRollback: 5m
+      
       {{- end }}
 {{- end }}
