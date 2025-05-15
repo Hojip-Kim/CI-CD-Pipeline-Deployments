@@ -26,7 +26,9 @@ spec:
         ports:
         - containerPort: {{ .Values.service.port }}
   strategy:
-    blueGreen:
+    autosync:
+      enabled: true
+    blueGreen:  
       activeService: {{ .Values.rollout.strategy.activeService | quote }}
       previewService: {{ .Values.rollout.strategy.previewService | quote }}
       {{- if not .Values.rollout.autoPromotionEnabled }}
