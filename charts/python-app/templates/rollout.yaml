@@ -30,6 +30,7 @@ spec:
       activeService: {{ .Values.rollout.strategy.activeService | quote }}
       previewService: {{ .Values.rollout.strategy.previewService | quote }}
       autoPromotionEnabled: {{ .Values.rollout.autoPromotionEnabled }}
+      scaleDownDelay: 30m
       {{- if not .Values.rollout.autoPromotionEnabled }}
       
       {{- end }}
